@@ -7,11 +7,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(dep/mervbot)
 
-configure_file(dep/mervbot/MERVBot.INI MERVBot.INI COPYONLY)
-configure_file(dep/mervbot/cfg/Commands.txt Commands.txt COPYONLY)
-configure_file(dep/mervbot/cfg/Operators.txt Operators.txt COPYONLY)
-configure_file(cfg/Spawns.txt Spawns.txt COPYONLY)
-
 add_library(${PROJECT_NAME} SHARED
 	src/command.cpp
 	src/spawn.cpp
@@ -35,3 +30,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 #set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER source/convert.h)
 
+add_custom_target(
+	${PROJECT_NAME}-config ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/MERVBot.INI ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Commands.txt ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Operators.txt ${CMAKE_CURRENT_SOURCE_DIR}/cfg/Spawns.txt $<TARGET_FILE_DIR:${PROJECT_NAME}>
+    COMMENT "Copying configuration files to plugin output directory..."
+)
