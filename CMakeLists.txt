@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME} SHARED
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 if (UNIX)
-	target_sources(${PROJECT_NAME} PRIVATE src/windows_compat.cpp)
+	target_sources(${PROJECT_NAME} PRIVATE dep/mervbot/src/windows_compat.cpp)
 
 	target_compile_definitions(${PROJECT_NAME} PRIVATE __stdcall=)
 	target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
