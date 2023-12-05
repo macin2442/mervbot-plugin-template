@@ -4,21 +4,19 @@
 
 This is an example bare-bones plugin for MERVBot without any function.
 
-## Dependencies
-
-
-
 ## Build Instructions
 
 On Debian Bullseye
 
 ```
-# install dependencies
+# install external dependencies
 sudo apt install cmake build-essential
 
+# checkout internal dependencies
 git submodule update --init --recursive
 
 # install dependencies required by mervbot (see `dep/mervbot/README.md`)
+# ...
 
 mkdir build
 cd build
