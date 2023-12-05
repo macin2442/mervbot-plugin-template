@@ -15,10 +15,17 @@ configure_file(cfg/Spawns.txt Spawns.txt COPYONLY)
 add_library(${PROJECT_NAME} SHARED
 	src/command.cpp
 	src/spawn.cpp
+	dep/mervbot/src/dllcore.cpp
+	dep/mervbot/src/datatypes.cpp
+	dep/mervbot/src/algorithms.cpp
+#	dep/mervbot/src/player.cpp
+	dep/mervbot/src/commtypes.cpp
 )
 
 if (UNIX)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE __stdcall=)
+else()
+	target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
