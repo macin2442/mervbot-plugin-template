@@ -15,11 +15,13 @@ add_library(${PROJECT_NAME} SHARED
 	dep/mervbot/src/algorithms.cpp
 #	dep/mervbot/src/player.cpp
 	dep/mervbot/src/commtypes.cpp
+	dep/mervbot/src/windows_compat.cpp
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 if (UNIX)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE __stdcall=)
+	target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
