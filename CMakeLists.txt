@@ -17,10 +17,9 @@ add_library(${PROJECT_NAME} SHARED
 	dep/mervbot/src/commtypes.cpp
 )
 
+target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 if (UNIX)
 	target_compile_definitions(${PROJECT_NAME} PRIVATE __stdcall=)
-else()
-	target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
@@ -36,10 +35,17 @@ add_custom_target(
     COMMENT "Copying configuration files to plugin output directory..."
 )
 
-add_custom_target(
-	${PROJECT_NAME}-symlink ALL
+if (WIN32)
 	# see https://github.com/ament/ament_cmake/issues/350
-	#COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
-	COMMAND ${CMAKE_COMMAND} -E create_hardlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
-	COMMENT "Symlinking MERVBot into plugin output directory..."
-)
+	add_custom_target(
+		${PROJECT_NAME}-symlink ALL
+		COMMAND ${CMAKE_COMMAND} -E create_hardlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+		COMMENT "Symlinking MERVBot into plugin output directory..."
+	)
+else()
+	add_custom_target(
+		${PROJECT_NAME}-symlink ALL
+		COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+		COMMENT "Symlinking MERVBot into plugin output directory..."
+	)
+endif()
