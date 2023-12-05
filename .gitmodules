@@ -1,0 +1,3 @@
+[submodule "dep/mervbot"]
+	path = dep/mervbot
+	url = ../mervbot.git
