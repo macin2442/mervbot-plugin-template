@@ -35,3 +35,11 @@ add_custom_target(
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/MERVBot.INI ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Commands.txt ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Operators.txt ${CMAKE_CURRENT_SOURCE_DIR}/cfg/Spawns.txt $<TARGET_FILE_DIR:${PROJECT_NAME}>
     COMMENT "Copying configuration files to plugin output directory..."
 )
+
+add_custom_target(
+	${PROJECT_NAME}-symlink ALL
+	# see https://github.com/ament/ament_cmake/issues/350
+	#COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+	COMMAND ${CMAKE_COMMAND} -E create_hardlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+	COMMENT "Symlinking MERVBot into plugin output directory..."
+)
