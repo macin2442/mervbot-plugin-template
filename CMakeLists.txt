@@ -7,6 +7,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(dep/mervbot)
 
+configure_file(dep/mervbot/MERVBot.INI MERVBot.INI COPYONLY)
+configure_file(dep/mervbot/cfg/Commands.txt Commands.txt COPYONLY)
+configure_file(dep/mervbot/cfg/Operators.txt Operators.txt COPYONLY)
+configure_file(cfg/Spawns.txt Spawns.txt COPYONLY)
+
 add_library(${PROJECT_NAME} SHARED
 	src/command.cpp
 	src/spawn.cpp
