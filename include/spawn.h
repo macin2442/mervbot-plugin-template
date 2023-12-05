@@ -5,10 +5,9 @@
 #ifndef SPAWN_H
 #define SPAWN_H
 
-#define STRING_CAST_CHAR
 #include "dllcore.h"
-
 #include "clientprot.h"
+
 
 struct PlayerTag
 {
