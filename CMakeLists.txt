@@ -15,11 +15,12 @@ add_library(${PROJECT_NAME} SHARED
 	dep/mervbot/src/algorithms.cpp
 #	dep/mervbot/src/player.cpp
 	dep/mervbot/src/commtypes.cpp
-	dep/mervbot/src/windows_compat.cpp
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 if (UNIX)
+	target_sources(${PROJECT_NAME} PRIVATE src/windows_compat.cpp)
+
 	target_compile_definitions(${PROJECT_NAME} PRIVATE __stdcall=)
 	target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 endif()
@@ -42,12 +43,14 @@ if (WIN32)
 	add_custom_target(
 		${PROJECT_NAME}-symlink ALL
 		COMMAND ${CMAKE_COMMAND} -E create_hardlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+		COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/lvl make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/get
 		COMMENT "Symlinking MERVBot into plugin output directory..."
 	)
 else()
 	add_custom_target(
 		${PROJECT_NAME}-symlink ALL
 		COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+		COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/lvl $<TARGET_FILE_DIR:${PROJECT_NAME}>/get
 		COMMENT "Symlinking MERVBot into plugin output directory..."
 	)
 endif()
