@@ -34,7 +34,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJ
 
 add_custom_target(
 	${PROJECT_NAME}-config ALL
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/MERVBot.INI ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Commands.txt ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Operators.txt $<TARGET_FILE_DIR:${PROJECT_NAME}>
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/MERVBot.INI ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Commands.txt ${CMAKE_CURRENT_SOURCE_DIR}/dep/mervbot/cfg/Operators.txt $<TARGET_FILE_DIR:${PROJECT_NAME}>
     COMMENT "Copying configuration files to plugin output directory..."
 )
 
@@ -42,7 +42,7 @@ if (WIN32)
 	# see https://github.com/ament/ament_cmake/issues/350
 	add_custom_target(
 		${PROJECT_NAME}-symlink ALL
-		COMMAND ${CMAKE_COMMAND} -E create_hardlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+		COMMAND ${CMAKE_COMMAND} -E create_hardlink $<TARGET_FILE:mervbot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:mervbot>
 		COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/lvl make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/get
 		COMMENT "Symlinking MERVBot into plugin output directory..."
 	)
@@ -51,7 +51,7 @@ if (WIN32)
 else()
 	add_custom_target(
 		${PROJECT_NAME}-symlink ALL
-		COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:MERVBot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:MERVBot>
+		COMMAND ${CMAKE_COMMAND} -E create_symlink $<TARGET_FILE:mervbot> $<TARGET_FILE_DIR:${PROJECT_NAME}>/$<TARGET_FILE_NAME:mervbot>
 		COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/lvl $<TARGET_FILE_DIR:${PROJECT_NAME}>/get
 		COMMENT "Symlinking MERVBot into plugin output directory..."
 	)
