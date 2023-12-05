@@ -2,16 +2,6 @@
 
 #include "algorithms.h"
 
-/*
-#include "..\dllcore.cpp"
-#include "..\datatypes.cpp"
-#include "..\algorithms.cpp"
-#include "..\player.cpp"
-#include "..\commtypes.cpp"
-*/
-
-//#define UNASSIGNED 0xffff
-
 #if __linux__
 
 uint16_t HIWORD(uint32_t x) {
