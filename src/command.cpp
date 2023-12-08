@@ -21,28 +21,24 @@ void botInfo::gotHelp(Player *p, Command *c)
 			{	// Owner-level commands
 //				sendPrivate(p, "Ext: ");
 			}
-			break;
-		case OP_SysOp:
+		case OP_SysOp:	/* FALL THRU */
 			{	// SysOp-level commands
 //				sendPrivate(p, "Ext: ");
 			}
-			break;
-		case OP_SuperModerator:
+		case OP_SuperModerator:	/* FALL THRU */
 			{	// SuperModerator-level commands
 //				sendPrivate(p, "Ext: ");
 			}
-			break;
-		case OP_Moderator:
+		case OP_Moderator:	/* FALL THRU */
 			{	// Moderator-level commands
 //				sendPrivate(p, "Ext: ");
 			}
-			break;
-		case OP_Limited:
+		case OP_Limited:	/* FALL THRU */
 			{	// Limited-level commands
 			}
-		case OP_Player:
+		case OP_Player:	/* FALL THRU */
 			{	// Player-level commands
-				sendPrivate(p, "!about (query me about my function)");
+				sendPrivate(p, "Ext: !about");
 			}
 		}
 
@@ -125,7 +121,14 @@ void botInfo::gotCommand(Player *p, Command *c)
 		{	// SuperModerator-level commands
 			if (c->check("version"))
 			{
-				sendPrivate(p, "[name:default.dll] [maker:cat02e@fsu.edu] [build:8]");
+				String s = "[name:";
+				s += plugin_name;
+				s += "] [maker:";
+				s += plugin_author;
+				s += "] [build:";
+				s += plugin_version;
+				s += "]";
+				sendPrivate(p, s);
 			}
 		}
 	case OP_Moderator:

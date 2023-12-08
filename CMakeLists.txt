@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(mervbot-plugin-template VERSION 0.0.1 DESCRIPTION "A MERVBot plugin template")
+project(mervbot-plugin-template VERSION 0.0.8 DESCRIPTION "A MERVBot plugin template")
+
+# the plugin author's e-mail (gets embedded into the bot's !version output)
+set(PROJECT_AUTHOR "cat02e@fsu.edu")
 
 # generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -13,9 +16,13 @@ add_library(${PROJECT_NAME} SHARED
 	dep/mervbot/src/dllcore.cpp
 	dep/mervbot/src/datatypes.cpp
 	dep/mervbot/src/algorithms.cpp
-#	dep/mervbot/src/player.cpp
+	dep/mervbot/src/player.cpp
 	dep/mervbot/src/commtypes.cpp
+	${CMAKE_CURRENT_BINARY_DIR}/src/pluginmeta.cpp
 )
+
+configure_file(src/pluginmeta.cpp.in src/pluginmeta.cpp.pregen)
+file(GENERATE OUTPUT src/pluginmeta.cpp INPUT ${CMAKE_CURRENT_BINARY_DIR}/src/pluginmeta.cpp.pregen)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE STRING_CAST_CHAR)
 if (UNIX)

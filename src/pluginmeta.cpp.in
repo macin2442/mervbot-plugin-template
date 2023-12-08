@@ -1,0 +1,3 @@
+const char *plugin_name = "$<TARGET_FILE_NAME:${PROJECT_NAME}>";
+const char *plugin_author = "${PROJECT_AUTHOR}";
+const char *plugin_version = "${CMAKE_PROJECT_VERSION}";

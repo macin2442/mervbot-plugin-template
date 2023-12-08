@@ -7,7 +7,7 @@
 
 #include "dllcore.h"
 #include "clientprot.h"
-
+#include "pluginmeta.h"
 
 struct PlayerTag
 {
